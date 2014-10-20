@@ -97,7 +97,7 @@ grossmutter(GMutter, Enkel) :-
   eltern(Eltern, Enkel),
   mutter(GMutter, Eltern).
   
-cousin(X, Person) :-
+cousin(X, Y) :-
   eltern(Elternteil, Y),
   geschwister(GeschwisterVonElternteil, Elternteil),
   eltern(GeschwisterVonElternteil, X),
