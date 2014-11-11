@@ -20,27 +20,24 @@ s(Sem)  --> vp(SemVP, VP, Numerus),      %ist homer
               %Praeposition
               arg(1,PP,P0), arg(1,P0,Praeposition), %von
               
-              Antwortliste=[N,' ',SemVP,' ',Artikel,' ',SemNP,' ',Praeposition,' ',SemPP,'!'],
-
-              with_output_to(atom(Antwortsatz), maplist(write, Antwortliste)),
-              write(Antwortsatz),nl,
-
 
               call(SemNP, N, Erg),
-              Sem=(Erg = SemPP) %TODO: TRUE oder FALSE ausgeben
 
+               SemPP = Erg ->
+                   Antwortliste=[N,' ',SemVP,' ',Artikel,' ',SemNP,' ',Praeposition,' ',SemPP,'!'],
+                   with_output_to(atom(Antwortsatz), maplist(write, Antwortliste)),
+                   writeln(Antwortsatz),
+                   Sem=true
+                   ;   Sem=false
              }.
              
              
 % Ergänzungsfrage:
 % "Wer ist der Vater von Homer?"
-s(Sem)  --> ip(SemIP, Numerus),       %wer
+s(Sem)  --> ip(_SemIP, Numerus),       %wer
             vp(SemVP, VP, Numerus),    %ist der vater
             pp(SemPP, PP, Numerus),    %von homer
             {
-               write(['SemIP:',SemIP,'SemVP:',SemVP,'SemPP:',SemPP]),nl  ,
-               write(['VP:',VP,'PP:',PP]),nl ,
-
               %Nomen
               arg(2,VP,VP1), arg(2,VP1,VP2), arg(1,VP2,Beziehung), %Vater
 

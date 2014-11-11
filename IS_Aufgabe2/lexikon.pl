@@ -36,6 +36,8 @@ lex(cousin, n, pl).
 lex(nichte, n, sg).
 lex(neffe, n, sg).
 
+lex(verheiratet,n,sg).
+
 lex(von, prae, _).
 lex(mit, prae, _).
 
