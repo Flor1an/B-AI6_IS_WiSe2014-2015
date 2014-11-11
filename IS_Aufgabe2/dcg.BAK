@@ -1,7 +1,7 @@
 :- load_files(['../IS_Aufgabe1/Teil1/stammbaum.pl', 'lexikon.pl']).
 
 bruder(X,Y) :- geschwister(X,Y).
-schwester(X,Y) :- geschwister(X,Y).
+schwester(X,Y) :- schwestern(X,Y).
 neffe(X,Y) :- nichte(X,Y).
 cousine(X,Y) :- cousin(X,Y).
 

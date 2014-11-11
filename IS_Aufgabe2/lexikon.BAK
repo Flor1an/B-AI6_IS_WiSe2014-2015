@@ -7,7 +7,6 @@ lex(der, det, sg).
 lex(die, det, sg).
 lex(die, det, pl).
 lex(das, det, sg).
-lex(ein, det, sg).
 
 %----------
 
