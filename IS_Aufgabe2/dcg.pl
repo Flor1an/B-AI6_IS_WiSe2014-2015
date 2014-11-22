@@ -7,30 +7,39 @@ cousine(X,Y) :- cousin(X,Y).
 
 % Entscheidungsfrage:
 % "Ist Homer der Vater von Bart?"
-s(Sem)  --> vp(SemVP, VP, Numerus),      %ist homer
-            np(SemNP, NP, Numerus),      %der Vater
-            pp(SemPP, PP, Numerus),      %von bart
+s(Sem)  --> vp(_SemVP, VP, Numerus),      %ist
+            np(_SemNP1, NP1, Numerus),    %homer
+            np(SemNP, NP2, Numerus),      %der Vater von bart
+
             {
-              %Nomen
-              arg(2,VP,VP1), arg(1,VP1,VP2), arg(1,VP2,N), %Homer
+            writeln(VP),
+            writeln(NP1),
+            writeln(NP2),
 
-              %Artikel
-              arg(1,NP,A0), arg(1,A0,Artikel), %der
+              arg(1,VP,VP1), arg(1,VP1,VP2), %ist
 
-              %Praeposition
-              arg(1,PP,P0), arg(1,P0,Praeposition), %von
-              
+              arg(1,NP1,NP11), arg(1,NP11,NP12), %homer
 
-              call(SemNP, N, Erg),
+              arg(1,NP2,NP22), arg(1,NP22,NP23), %der
+
+              arg(2,NP2,NP24), arg(1,NP24,NP244), %Vater
+
+              arg(3,NP2,NP25), arg(1,NP25,NP255), arg(1,NP255,NP2555), %von
+
+              arg(2,NP25,NP26), arg(1,NP26,NP266), arg(1,NP266,NP2666), %bart
 
 
-              SemPP = Erg ->
-                   Antwortliste=['JA! ',N,' ',SemVP,' ',Artikel,' ',SemNP,' ',Praeposition,' ',SemPP,'!'],
+
+              call(SemNP, NP12, Erg),
+
+
+              NP2666 = Erg ->
+                   Antwortliste=['JA! ',NP12,' ',VP2,' ',NP23,' ',NP244,' ',NP2555,' ',NP2666,'!'],
                    with_output_to(atom(Antwortsatz), maplist(write, Antwortliste)),
                    writeln(Antwortsatz),
                    Sem=true
                    ;
-                   writeln('Nein ganz falsch...'),
+                   writeln('Nein!'),
                    Sem=false
              }.
              
@@ -38,37 +47,45 @@ s(Sem)  --> vp(SemVP, VP, Numerus),      %ist homer
 % Ergänzungsfrage:
 % "Wer ist der Vater von Homer?"
 s(Sem)  --> ip(_SemIP, Numerus),       %wer
-            vp(SemVP, VP, Numerus),    %ist der vater
-            pp(SemPP, PP, Numerus),    %von homer
+            vp(_SemVP, VP, Numerus),    %ist der vater von homer
+
             {
-              %Nomen
-              arg(2,VP,VP1), arg(2,VP1,VP2), arg(1,VP2,Beziehung), %Vater
 
-              %Artikel
-              arg(1,VP1,VPA),arg(1,VPA,Artikel),
-              
-              %Praeposition
-              arg(1,PP,PP1), arg(1,PP1,Praeposition),
 
-              
-              call(Beziehung, Ergebnis, SemPP),
+            arg(1,VP,VP1),arg(1,VP1,VP11),     %ist
+
+            arg(2,VP,VP2),arg(1,VP2,VP22),arg(1,VP22,VP222),     %der
+
+            arg(2,VP2,VP3),arg(1,VP3,VP33),     %vater
+
+            arg(3,VP2,VP4),arg(1,VP4,VP44),arg(1,VP44,VP444),     %von
+
+            arg(2,VP4,VP5),arg(1,VP5,VP55),arg(1,VP55,VP555),     %homer
+
+
+            
+              call(VP33, Ergebnis, VP555),
               Sem = Ergebnis,
 
-              Antwortliste=[Ergebnis,' ',SemVP,' ',Artikel,' ',Beziehung,' ',Praeposition,' ',SemPP,'!'],
+              Antwortliste=[Ergebnis,' ',VP11,' ',VP222,' ',VP33,' ',VP444,' ',VP555,'!'],
               with_output_to(atom(Antwortsatz), maplist(write, Antwortliste)),
-              write(Antwortsatz),nl
-            }.
+              writeln(Antwortsatz)
+
+          }.
 
 
 %Eine Nominalphrase kann sein:
   %Eigenname
   np(SemPN,np(N),Numerus)              --> pn(SemPN, N, Numerus).
   
+  %Artikel, Nomen, Präpositionalphrase
+  np(SemN,np(Det,N,PP),Numerus)       --> det(Det, Numerus), n(SemN, N, Numerus), pp(_SemN1, PP, Numerus).
+  
+  
   %Artikel, Nomen
   np(SemN,np(Det,N),Numerus)          --> det(Det, Numerus), n(SemN, N, Numerus).
 
-  %Artikel, Nomen, Präpositionalphrase
-  np(SemN,np(Det,N,PP),Numerus)       --> det(Det, Numerus), n(SemN, N, Numerus), pp(SemN, PP, Numerus).
+
 
 
 
