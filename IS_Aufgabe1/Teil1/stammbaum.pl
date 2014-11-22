@@ -22,7 +22,7 @@ frau(patty).
 frau(selma).
 frau(ling).
 frau(lisa).
-frau(meggi).
+frau(meggie).
 
 
 %Ehen
@@ -43,7 +43,7 @@ vater(ape,abbie).
 vater(ape,herb).
 vater(homer,bart).
 vater(homer,lisa).
-vater(homer,meggi).
+vater(homer,meggie).
 vater(clancy,marge).
 vater(clancy,patty).
 vater(clancy,selma).
@@ -60,7 +60,7 @@ mutter(jaqueline,selma).
 mutter(selma,ling).
 mutter(marge,bart).
 mutter(marge,lisa).
-mutter(marge,meggi).
+mutter(marge,meggie).
 
 eltern(Elternteil,Kind) :-
   mutter(Elternteil,Kind);vater(Elternteil,Kind).
@@ -79,12 +79,13 @@ halbgeschwister(X, Y) :-
   (Vater1 \= Vater2, Mutter1 = Mutter2)).
 
   
-schwester(X,Y) :-
-  frau(X),
-  frau(Y),
-  geschwister(X,Y).
+schwestern(X,Y) :-
+  geschwister(X,Y),
+  not(mann(X)),
+  %frau(X),
+  frau(Y).
   
-bruder(X,Y) :-
+brueder(X,Y) :-
   mann(X),
   mann(Y),
   geschwister(X,Y).
