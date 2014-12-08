@@ -32,6 +32,7 @@ write_actions([(Action,_,_)|Rest]):-
 
 
 
+
 % Abbruchbedingung: Wenn ein Zielzustand erreicht ist, wird der aktuelle Pfad an den
 % dritten Parameter übertragen.
 %
@@ -45,6 +46,22 @@ search([[FirstNode|Predecessors]|RestPaths],Strategy,Solution) :-
   generate_new_paths(Children,[FirstNode|Predecessors],NewPaths), % Nachfolge-Zustände einbauen 
   insert_new_paths(Strategy,NewPaths,RestPaths,AllPaths),        % Neue Pfade einsortieren
   search(AllPaths,Strategy,Solution).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -113,41 +130,8 @@ insert_new_paths(breadth,NewPaths,OldPaths,AllPaths):-
   append(OldPaths,NewPaths,AllPaths),
   write_next_state(AllPaths),
   write_action(AllPaths).
-  
 
-% Optimistisches Bergsteigen
-insert_new_paths(hill_climbing,NewPaths,_,[BestPath]):-
-  eval_paths(NewPaths),
-  insert_new_paths_informed(NewPaths,[],[BestPath|_]),
-
-  [(_,_,ValueNeu)|_]=BestPath,
-  getZweiter(BestPath,ValueVorherig),
-
-  (ValueNeu >= ValueVorherig ->
-    write_fail(_,_);
-  
-    write_action([BestPath]),
-    write_state([BestPath])
-   ).
-
-
-  %Abbruch wenn erster
-  getZweiter([_|[(A,_,V)|_]],Value):-
-    (A == start ->
-       Value=10000000;
-       Value=V
-    ).
-
-
-% Bergsteigen mit Backtracking
-insert_new_paths(hill_climbing_bt,NewPaths,OldPaths,AllPaths):-
-  eval_paths(NewPaths),
-  insert_new_paths_informed(NewPaths,[],SortedPaths),
-  append(SortedPaths,OldPaths,AllPaths),
-  write_action(SortedPaths),
-  write_state(SortedPaths).
-
-% Informierte Suche (A und gierige Bestensuche)
+% Informierte Suche
 insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
   eval_paths(NewPaths),
   insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
