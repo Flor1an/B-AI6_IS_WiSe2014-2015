@@ -2,9 +2,9 @@
 
 ##### Funktionierende Fragen:
 
-1 `?- consult(readsentence).`
-2 `?- r(_)`
-3 `> //Frage//`
+1. `?- consult(readsentence).`
+2. `?- r(_).`
+3. `> //Frage//`
 
 
 ### Entscheidungsfrage:
@@ -18,7 +18,7 @@
 -Ist Homer ein Elternteil von Lisa?
 
 
-### Erg‰nzungsfrage:
+### Erg√§nzungsfrage:
 
 - Wer ist der Vater von Bart?
 - Wer ist die grossmutter von Lisa?
