@@ -1,4 +1,4 @@
-##Aufgabe 1 (Message of the Day)
+##Aufgabe 3 (Suchen/Planen)
 
 ### Teil 1
 
