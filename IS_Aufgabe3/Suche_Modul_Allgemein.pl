@@ -139,6 +139,10 @@ insert_new_paths(hill_climbing,NewPaths,_,[BestPath]):-
     ).
 
 
+
+
+
+
 % Bergsteigen mit Backtracking
 insert_new_paths(hill_climbing_bt,NewPaths,OldPaths,AllPaths):-
   eval_paths(NewPaths),

@@ -99,22 +99,22 @@ state_member(State,[_|RestStates]):-
         eval_state(Path,G).
 
     %<Suchverfahren>     //Ein Algorithmus auswählen
-
+        /*
       %used TODO: A-Algorithmus
-    /*    eval_state([(_X,State,Value)|_],G) :-
+          eval_state([(_X,State,Value)|_],G) :-
           heuristik(State,H1),
           heuristikFaktor(State,H2),
           F is G + H1 - H2, %A-Algorithmus: f(n) = g(n) + h(n)
           %nl,write(['Moeglichkeit: ', X, ' Kosten: ', F]),  %ToDebug
           Value = F.
-          */
+       */
 
       %used TODO: gierige Bestensuche
         eval_state([(_X,State,Value)|_],_) :-
           heuristik(State,H1),
           heuristikFaktor(State,H2),
           %nl,write(['Moeglichkeit: ', X, ' Kosten: ', H]),  %ToDebug
-          Value is H1 + H2.
+          Value is H1 - H2.
 
           
       %used TODO: optimistisches Bergsteigen
